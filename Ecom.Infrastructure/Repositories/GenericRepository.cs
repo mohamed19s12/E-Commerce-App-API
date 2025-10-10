@@ -27,15 +27,8 @@ namespace Ecom.Infrastructure.Repositories
         public async Task DeleteAsync(int id)
         {
             var entity =await _context.Set<T>().FindAsync(id);
-            if (entity == null)
-            {
-                throw new Exception($"Entity with id {id} not found");
-            }
-            else
-            {
-                _context.Set<T>().Remove(entity);
-                await _context.SaveChangesAsync();
-            }
+            _context.Set<T>().Remove(entity);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<IReadOnlyList<T>> GetAllAsync()
@@ -56,10 +49,6 @@ namespace Ecom.Infrastructure.Repositories
         public async Task<T> GetByIdAsync(int id)
         {
             var entity = await _context.Set<T>().FindAsync(id);
-            if (entity == null)
-            {
-                throw new Exception($"Entity with id {id} not found");
-            }
             return entity;
         }
 
@@ -71,10 +60,6 @@ namespace Ecom.Infrastructure.Repositories
                 query = query.Include(item);
             }
             var entity = await query.FirstOrDefaultAsync(e => EF.Property<int>(e , "Id") == id);
-            if (entity == null)
-            {
-                throw new Exception($"Entity with id {id} not found");
-            }
             return entity;
         }
 
