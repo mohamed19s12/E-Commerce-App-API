@@ -11,6 +11,17 @@ namespace Ecom.API
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("CORSPolicy", builder =>
+                {
+                    builder.AllowAnyMethod()
+                           .AllowAnyHeader()
+                           .WithOrigins("https://localhost:4200"); //-------https://localhost:4200 is Angular app url-------//
+                });
+            });
+
             builder.Services.AddMemoryCache();
             builder.Services.AddControllers();
             builder.Services.AddOpenApi();
@@ -27,6 +38,7 @@ namespace Ecom.API
                 app.UseSwaggerUI();
                 app.MapOpenApi();
             }
+            app.UseCors("CORSPolicy");
             app.UseMiddleware<ExceptionsMiddleware>();
             app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
