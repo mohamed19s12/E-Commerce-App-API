@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
+using StackExchange.Redis;
 
 
 namespace Ecom.Infrastructure
@@ -33,6 +34,14 @@ namespace Ecom.Infrastructure
 
             //apply unit of work pattern
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            //Apply redis cache configuration
+            services.AddSingleton<IConnectionMultiplexer>(i =>
+            {
+                var config = ConfigurationOptions.Parse(configuration.GetConnectionString("RedisConnection"));
+                return ConnectionMultiplexer.Connect(config);
+
+            });
 
             //apply db context
             services.AddDbContext<AppDbContext>(option =>
