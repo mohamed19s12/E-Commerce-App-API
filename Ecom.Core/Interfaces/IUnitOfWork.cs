@@ -12,6 +12,7 @@ namespace Ecom.Core.Interfaces
         public IProductRepository ProductRepository { get; }
         public IPhotoRepository PhotoRepository { get; }
         public ICustomerBasketRepository CustomerBasketRepository { get; }
+        public IAuth Auth { get; }
 
     }
 }

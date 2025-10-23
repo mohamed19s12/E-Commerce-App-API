@@ -4,6 +4,7 @@ using Ecom.Core.DTO;
 using Ecom.Core.Interfaces;
 using Ecom.Core.Sharing;
 using Ecom.Infrastructure.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -55,6 +56,7 @@ namespace Ecom.API.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost("add-product")]
         public async Task<IActionResult> Add([FromForm] AddProductDTO ProductDto)
         {
@@ -69,6 +71,7 @@ namespace Ecom.API.Controllers
             }
         }
 
+        [Authorize]
         [HttpPut("update-product")]
         public async Task<IActionResult> Update([FromForm] UpdateProductDTO ProductDto)
         {
@@ -83,6 +86,7 @@ namespace Ecom.API.Controllers
             }
         }
 
+        [Authorize]
         [HttpDelete("Delete-Product/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
